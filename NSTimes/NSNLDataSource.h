@@ -7,7 +7,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "NSRailConnection.h"
 
-@interface NSNLDataSource : NSObject
+@interface NSNLDataSource : NSObject <NSRailConnectionDataSource>
 
 @end

@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class Train, TFHppleElement;
+@class Train, DDXMLElement;
 
 @protocol NSRailConnectionDataSource <NSObject>
 
@@ -17,12 +17,12 @@
 
 - (NSString *)XPathQueryForTrains;
 
-- (NSDate *)departureDateFromElement:(TFHppleElement *)element;
-- (NSDate *)arrivalDateFromElement:(TFHppleElement *)element;
-- (NSString *)platformFromElement:(TFHppleElement *)element;
-- (NSString *)travelTimeFromElement:(TFHppleElement *)element;
-- (NSString *)departureDelayFromElement:(TFHppleElement *)element;
-- (NSString *)arrivalDelayFromElement:(TFHppleElement *)element;
+- (NSDate *)departureDateFromElement:(DDXMLElement *)element;
+- (NSDate *)arrivalDateFromElement:(DDXMLElement *)element;
+- (NSString *)platformFromElement:(DDXMLElement *)element;
+- (NSString *)travelTimeFromElement:(DDXMLElement *)element;
+- (NSString *)departureDelayFromElement:(DDXMLElement *)element;
+- (NSString *)arrivalDelayFromElement:(DDXMLElement *)element;
 - (BOOL)shouldDisplayTrain:(Train *)train;
 
 @end
@@ -40,5 +40,10 @@
 
 - (void)fetchWithSuccess:(void (^)(NSArray *trains))success failure:(void (^)(NSError *error))failure;
 - (void)fetchMoreWithSuccess:(void (^)(NSArray *trains))success failure:(void (^)(NSError *error))failure;
+
+#pragma mark - Normalization
+
+- (NSDate *)dateForString:(NSString *)string;
+- (NSString *)normalizeString:(NSString *)string;
 
 @end

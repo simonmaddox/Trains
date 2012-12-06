@@ -30,49 +30,16 @@ static NSRailConnection *sharedInstance = nil;
     return sharedInstance;
 }
 
-#pragma mark - NSURLRequests
-
-- (NSURLRequest *)requestWithFrom:(NSString *)from to:(NSString *)to
-{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.ns.nl/reisplanner-v2/index.shtml"]];
-    [request setHTTPMethod:@"POST"];
-    
-    NSDateComponents *components = [[NSCalendar currentCalendar] components:NSDayCalendarUnit|NSMonthCalendarUnit|NSYearCalendarUnit|NSHourCalendarUnit|NSMinuteCalendarUnit fromDate:[NSDate date]];
-    NSInteger day = [components day];
-    NSInteger month = [components month];
-    NSInteger year = [components year];
-    NSInteger hour = [components hour];
-    NSInteger minute = [components minute];
-    
-    NSString *postString = [NSString stringWithFormat:@"show-reisplannertips=true&language=en&js-action=%%2Freisplanner-v2%%2Findex.shtml&SITESTAT_ELEMENTS=sitestatElementsReisplannerV2&POST_AUTOCOMPLETE=%%2Freisplanner-v2%%2Fautocomplete.ajax&POST_VALIDATE=%%2Freisplanner-v2%%2FtravelAdviceValidation.ajax&outwardTrip.fromLocation.locationType=STATION&outwardTrip.fromLocation.name=%@&outwardTrip.toLocation.locationType=STATION&outwardTrip.toLocation.name=%@&outwardTrip.viaStationName=&outwardTrip.dateType=specified&outwardTrip.day=%i&outwardTrip.month=%i&outwardTrip.year=%i&outwardTrip.hour=%i&outwardTrip.minute=%i&outwardTrip.arrivalTime=false&submit-search=Give+trip+and+price", from, to, day, month, year, hour, minute];
-    
-    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    return request;
-}
-
-- (NSURLRequest *)requestForMoreWithFrom:(NSString *)from to:(NSString *)to
-{
-    NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:[NSURL URLWithString:@"http://www.ns.nl/reisplanner-v2/earlierLater.ajax"]];
-    [request setHTTPMethod:@"POST"];
-    
-    NSString *postString = @"direction=outwardTrip&type=later";
-    
-    [request setHTTPBody:[postString dataUsingEncoding:NSUTF8StringEncoding]];
-    
-    return request;
-}
-
 #pragma mark - Fetching
 
 - (void)fetchWithSuccess:(void (^)(NSArray *trains))success failure:(void (^)(NSError *error))failure
 {
-    NSURLRequest *urlRequest = [self requestWithFrom:self.from to:self.to];
+    NSURLRequest *urlRequest = [self.dataSource requestWithFrom:self.from to:self.to];
     
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
         TFHpple *document = [[TFHpple alloc] initWithHTMLData:responseObject];
-        NSArray *elements = [document searchWithXPathQuery:@"//table[@class='time-table']/tbody/tr"];
+        NSArray *elements = [document searchWithXPathQuery:[self.dataSource XPathQueryForTrains]];
         
         success([self trainsWithHTMLElements:elements]);
     } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
@@ -86,7 +53,7 @@ static NSRailConnection *sharedInstance = nil;
 
 - (void)fetchMoreWithSuccess:(void (^)(NSArray *trains))success failure:(void (^)(NSError *error))failure
 {
-    NSURLRequest *urlRequest = [self requestForMoreWithFrom:self.from to:self.to];
+    NSURLRequest *urlRequest = [self.dataSource requestForMoreWithFrom:self.from to:self.to];
     
     AFHTTPRequestOperation *requestOperation = [[AFHTTPRequestOperation alloc] initWithRequest:urlRequest];
     [requestOperation setCompletionBlockWithSuccess:^(AFHTTPRequestOperation *operation, id responseObject) {
@@ -162,38 +129,17 @@ static NSRailConnection *sharedInstance = nil;
         Train *train = [[Train alloc] init];
     
         // Simple fields
-        [train setPlatform:[self normalizeString:[[[element nodesForXPath:@"aankomstspoor" error:nil] objectAtIndex:0] stringValue]]];
-        [train setTravelTime:[self normalizeString:[[[element nodesForXPath:@"reistijd" error:nil] objectAtIndex:0] stringValue]]];
+        [train setPlatform:[self.dataSource platformFromElement:element]];
+        [train setTravelTime:[self.dataSource travelTimeFromElement:element]];
         
         // Delays
-        NSString *departureDeley = @"";
-        NSString *departureTimeString = [self normalizeString:[[[element nodesForXPath:@"vertrek" error:nil] objectAtIndex:0] stringValue]];
-        TFHpple *departureElements = [[TFHpple alloc] initWithHTMLData:[departureTimeString dataUsingEncoding:NSUTF8StringEncoding]];
         
-        if ([[train platform] isEqualToString:@"5a"]) {
-            NSArray *departureArray = [departureElements searchWithXPathQuery:@"//text()"];
-            
-            if ([departureArray count] > 0) {
-                departureTimeString = [self normalizeString:[[departureArray objectAtIndex:0] content]];
-            }
-            
-            if ([departureArray count] > 1) {
-                departureDeley = [self normalizeString:[[departureArray objectAtIndex:1] content]];
-            }
-        }
-        
-        if (departureDeley && ![departureDeley isEqualToString:@""]) {
-            [train setDepartureDelay:departureDeley];
-        }
-        
-        NSString *departureString = [NSString stringWithFormat:@"%@ %@", [self normalizeString:[[[element nodesForXPath:@"vertrekdatum" error:nil] objectAtIndex:0] stringValue]], departureTimeString];
         NSString *arrivalString = [NSString stringWithFormat:@"%@ %@", [self normalizeString:[[[element nodesForXPath:@"aankomstdatum" error:nil] objectAtIndex:0] stringValue]], [self normalizeString:[[[element nodesForXPath:@"aankomst" error:nil] objectAtIndex:0] stringValue]]];
 
-        NSDate *departure = [self dateForString:departureString];
-        [train setDeparture:departure];
+        [train setDeparture:[self.dataSource departureDateFromElement:element]];
         [train setArrival:[self dateForString:arrivalString]];
         
-        NSInteger diff = ([departure timeIntervalSinceReferenceDate] - [NSDate timeIntervalSinceReferenceDate]) / 60;
+        NSInteger diff = ([train.departure timeIntervalSinceReferenceDate] - [NSDate timeIntervalSinceReferenceDate]) / 60;
         if (diff > 60) {
             continue;
         }
