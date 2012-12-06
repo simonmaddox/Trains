@@ -8,6 +8,25 @@
 
 #import <Foundation/Foundation.h>
 
+@class Train, TFHppleElement;
+
+@protocol NSRailConnectionDelegate <NSObject>
+
+- (NSURLRequest *)requestWithFrom:(NSString *)from to:(NSString *)to;
+- (NSURLRequest *)requestForMoreWithFrom:(NSString *)from to:(NSString *)to;
+
+- (NSString *)XPathQueryForTrains;
+
+- (NSDate *)departureDateFromElement:(TFHppleElement *)element;
+- (NSDate *)arrivalDateFromElement:(TFHppleElement *)element;
+- (NSString *)platformFromElement:(TFHppleElement *)element;
+- (NSString *)travelTimeFromElement:(TFHppleElement *)element;
+- (NSString *)departureDelayFromElement:(TFHppleElement *)element;
+- (NSString *)arrivalDelayFromElement:(TFHppleElement *)element;
+- (BOOL)shouldDisplayTrain:(Train *)train;
+
+@end
+
 @interface NSRailConnection : NSObject
 
 @property (nonatomic, assign) NSString *from;
