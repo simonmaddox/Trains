@@ -13,7 +13,6 @@
 		E109E2EE1668F80A00642514 /* Icon.png in Resources */ = {isa = PBXBuildFile; fileRef = E109E2ED1668F80A00642514 /* Icon.png */; };
 		E109E2F01668F83000642514 /* Icon@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = E109E2EF1668F83000642514 /* Icon@2x.png */; };
 		E1BA46DB1668FA7000845855 /* Crashlytics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1BA46DA1668FA7000845855 /* Crashlytics.framework */; };
-		E1C618B71669362E00EAF58F /* TrainsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = E1C618B51669362E00EAF58F /* TrainsViewController.xib */; };
 		E1C618C21669388700EAF58F /* Localizable.strings in Resources */ = {isa = PBXBuildFile; fileRef = E1C618C41669388700EAF58F /* Localizable.strings */; };
 		E1F1022F16680D6E00087248 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1F1022E16680D6E00087248 /* UIKit.framework */; };
 		E1F1023116680D6E00087248 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1F1023016680D6E00087248 /* Foundation.framework */; };
@@ -32,6 +31,12 @@
 		E1F102A716680F0D00087248 /* libxml2.2.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = E1F102A616680F0D00087248 /* libxml2.2.dylib */; };
 		E1F102B1166812EA00087248 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E1F102B0166812EA00087248 /* SystemConfiguration.framework */; };
 		E1F102BB1668152C00087248 /* Train.m in Sources */ = {isa = PBXBuildFile; fileRef = E1F102BA1668152C00087248 /* Train.m */; };
+		F4F4982816707E3100457726 /* DDXMLElementAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F4981B16707E3100457726 /* DDXMLElementAdditions.m */; };
+		F4F4982916707E3100457726 /* NSString+DDXML.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F4981E16707E3100457726 /* NSString+DDXML.m */; };
+		F4F4982A16707E3100457726 /* DDXMLDocument.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F4982116707E3100457726 /* DDXMLDocument.m */; };
+		F4F4982B16707E3100457726 /* DDXMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F4982316707E3100457726 /* DDXMLElement.m */; };
+		F4F4982C16707E3100457726 /* DDXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F4982516707E3100457726 /* DDXMLNode.m */; };
+		F4F4982F16707E3D00457726 /* TrainsMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F4982E16707E3D00457726 /* TrainsMessageView.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,9 +49,7 @@
 		E109E2ED1668F80A00642514 /* Icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Icon.png; path = ../Icon.png; sourceTree = "<group>"; };
 		E109E2EF1668F83000642514 /* Icon@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = "Icon@2x.png"; path = "../Icon@2x.png"; sourceTree = "<group>"; };
 		E1BA46DA1668FA7000845855 /* Crashlytics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Crashlytics.framework; sourceTree = "<group>"; };
-		E1C618B61669362E00EAF58F /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/TrainsViewController.xib; sourceTree = "<group>"; };
 		E1C618C31669388700EAF58F /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/Localizable.strings; sourceTree = "<group>"; };
-		E1C618C51669389300EAF58F /* nl */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = nl; path = nl.lproj/TrainsViewController.xib; sourceTree = "<group>"; };
 		E1C618C61669389300EAF58F /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		E1C618C71669389300EAF58F /* nl */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = nl; path = nl.lproj/Localizable.strings; sourceTree = "<group>"; };
 		E1F1022A16680D6E00087248 /* Trains.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Trains.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -76,6 +79,20 @@
 		E1F102B0166812EA00087248 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		E1F102B91668152C00087248 /* Train.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Train.h; sourceTree = "<group>"; };
 		E1F102BA1668152C00087248 /* Train.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Train.m; sourceTree = "<group>"; };
+		F4F4981A16707E3100457726 /* DDXMLElementAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXMLElementAdditions.h; sourceTree = "<group>"; };
+		F4F4981B16707E3100457726 /* DDXMLElementAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDXMLElementAdditions.m; sourceTree = "<group>"; };
+		F4F4981D16707E3100457726 /* NSString+DDXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSString+DDXML.h"; sourceTree = "<group>"; };
+		F4F4981E16707E3100457726 /* NSString+DDXML.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSString+DDXML.m"; sourceTree = "<group>"; };
+		F4F4981F16707E3100457726 /* DDXML.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXML.h; sourceTree = "<group>"; };
+		F4F4982016707E3100457726 /* DDXMLDocument.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXMLDocument.h; sourceTree = "<group>"; };
+		F4F4982116707E3100457726 /* DDXMLDocument.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDXMLDocument.m; sourceTree = "<group>"; };
+		F4F4982216707E3100457726 /* DDXMLElement.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXMLElement.h; sourceTree = "<group>"; };
+		F4F4982316707E3100457726 /* DDXMLElement.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDXMLElement.m; sourceTree = "<group>"; };
+		F4F4982416707E3100457726 /* DDXMLNode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXMLNode.h; sourceTree = "<group>"; };
+		F4F4982516707E3100457726 /* DDXMLNode.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = DDXMLNode.m; sourceTree = "<group>"; };
+		F4F4982716707E3100457726 /* DDXMLPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXMLPrivate.h; sourceTree = "<group>"; };
+		F4F4982D16707E3D00457726 /* TrainsMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainsMessageView.h; sourceTree = "<group>"; };
+		F4F4982E16707E3D00457726 /* TrainsMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainsMessageView.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -113,6 +130,8 @@
 				E102D8881668D56300F1B09B /* TrainsTableViewCell.m */,
 				E102D88A1668D59000F1B09B /* TrainsTableViewCellView.h */,
 				E102D88B1668D59000F1B09B /* TrainsTableViewCellView.m */,
+				F4F4982D16707E3D00457726 /* TrainsMessageView.h */,
+				F4F4982E16707E3D00457726 /* TrainsMessageView.m */,
 			);
 			name = Views;
 			sourceTree = "<group>";
@@ -169,7 +188,6 @@
 				E1F1023E16680D6E00087248 /* AppDelegate.m */,
 				E1C618B8166936D800EAF58F /* Trains */,
 				E1F102B71668150700087248 /* NSRail */,
-				E1F1026216680E1900087248 /* Xibs */,
 				E1C618BF166937AA00EAF58F /* Resources */,
 				E1F1023516680D6E00087248 /* Supporting Files */,
 			);
@@ -188,17 +206,10 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		E1F1026216680E1900087248 /* Xibs */ = {
-			isa = PBXGroup;
-			children = (
-				E1C618B51669362E00EAF58F /* TrainsViewController.xib */,
-			);
-			name = Xibs;
-			sourceTree = "<group>";
-		};
 		E1F1026316680E9600087248 /* Vendor */ = {
 			isa = PBXGroup;
 			children = (
+				F4F4981816707E3100457726 /* KissXML */,
 				E1F1026416680E9600087248 /* hpple */,
 			);
 			path = Vendor;
@@ -226,6 +237,50 @@
 				E1F102BA1668152C00087248 /* Train.m */,
 			);
 			name = NSRail;
+			sourceTree = "<group>";
+		};
+		F4F4981816707E3100457726 /* KissXML */ = {
+			isa = PBXGroup;
+			children = (
+				F4F4981916707E3100457726 /* Additions */,
+				F4F4981C16707E3100457726 /* Categories */,
+				F4F4981F16707E3100457726 /* DDXML.h */,
+				F4F4982016707E3100457726 /* DDXMLDocument.h */,
+				F4F4982116707E3100457726 /* DDXMLDocument.m */,
+				F4F4982216707E3100457726 /* DDXMLElement.h */,
+				F4F4982316707E3100457726 /* DDXMLElement.m */,
+				F4F4982416707E3100457726 /* DDXMLNode.h */,
+				F4F4982516707E3100457726 /* DDXMLNode.m */,
+				F4F4982616707E3100457726 /* Private */,
+			);
+			name = KissXML;
+			path = KissXML/KissXML;
+			sourceTree = "<group>";
+		};
+		F4F4981916707E3100457726 /* Additions */ = {
+			isa = PBXGroup;
+			children = (
+				F4F4981A16707E3100457726 /* DDXMLElementAdditions.h */,
+				F4F4981B16707E3100457726 /* DDXMLElementAdditions.m */,
+			);
+			path = Additions;
+			sourceTree = "<group>";
+		};
+		F4F4981C16707E3100457726 /* Categories */ = {
+			isa = PBXGroup;
+			children = (
+				F4F4981D16707E3100457726 /* NSString+DDXML.h */,
+				F4F4981E16707E3100457726 /* NSString+DDXML.m */,
+			);
+			path = Categories;
+			sourceTree = "<group>";
+		};
+		F4F4982616707E3100457726 /* Private */ = {
+			isa = PBXGroup;
+			children = (
+				F4F4982716707E3100457726 /* DDXMLPrivate.h */,
+			);
+			path = Private;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -288,7 +343,6 @@
 				E1F1024516680D6E00087248 /* Default-568h@2x.png in Resources */,
 				E109E2EE1668F80A00642514 /* Icon.png in Resources */,
 				E109E2F01668F83000642514 /* Icon@2x.png in Resources */,
-				E1C618B71669362E00EAF58F /* TrainsViewController.xib in Resources */,
 				E1C618C21669388700EAF58F /* Localizable.strings in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -340,21 +394,18 @@
 				E1F102BB1668152C00087248 /* Train.m in Sources */,
 				E102D8891668D56300F1B09B /* TrainsTableViewCell.m in Sources */,
 				E102D88C1668D59000F1B09B /* TrainsTableViewCellView.m in Sources */,
+				F4F4982816707E3100457726 /* DDXMLElementAdditions.m in Sources */,
+				F4F4982916707E3100457726 /* NSString+DDXML.m in Sources */,
+				F4F4982A16707E3100457726 /* DDXMLDocument.m in Sources */,
+				F4F4982B16707E3100457726 /* DDXMLElement.m in Sources */,
+				F4F4982C16707E3100457726 /* DDXMLNode.m in Sources */,
+				F4F4982F16707E3D00457726 /* TrainsMessageView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXVariantGroup section */
-		E1C618B51669362E00EAF58F /* TrainsViewController.xib */ = {
-			isa = PBXVariantGroup;
-			children = (
-				E1C618B61669362E00EAF58F /* en */,
-				E1C618C51669389300EAF58F /* nl */,
-			);
-			name = TrainsViewController.xib;
-			sourceTree = "<group>";
-		};
 		E1C618C41669388700EAF58F /* Localizable.strings */ = {
 			isa = PBXVariantGroup;
 			children = (
