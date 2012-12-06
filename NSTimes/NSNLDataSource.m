@@ -103,4 +103,57 @@
     return (diff <= 60);
 }
 
+- (NSArray *)trainsWithData:(NSData *)data
+{
+    NSMutableArray *trains = [NSMutableArray array];
+    
+    DDXMLDocument *document = [[DDXMLDocument alloc] initWithData:data options:0 error:nil];
+    NSArray *elements = [document nodesForXPath:@"//reistijden/reizen/reis" error:nil];
+    
+    for (DDXMLElement *element in elements) {
+        Train *train = [[Train alloc] init];
+        
+        // Simple fields
+        [train setPlatform:[[NSRailConnection sharedInstance] normalizeString:[[[element nodesForXPath:@"aankomstspoor" error:nil] objectAtIndex:0] stringValue]]];
+        [train setTravelTime:[[NSRailConnection sharedInstance] normalizeString:[[[element nodesForXPath:@"reistijd" error:nil] objectAtIndex:0] stringValue]]];
+        
+        // Delays
+        NSString *departureDeley = @"";
+        NSString *departureTimeString = [[NSRailConnection sharedInstance] normalizeString:[[[element nodesForXPath:@"vertrek" error:nil] objectAtIndex:0] stringValue]];
+        TFHpple *departureElements = [[TFHpple alloc] initWithHTMLData:[departureTimeString dataUsingEncoding:NSUTF8StringEncoding]];
+        
+        if ([[train platform] isEqualToString:@"5a"]) {
+            NSArray *departureArray = [departureElements searchWithXPathQuery:@"//text()"];
+            
+            if ([departureArray count] > 0) {
+                departureTimeString = [[NSRailConnection sharedInstance] normalizeString:[[departureArray objectAtIndex:0] content]];
+            }
+            
+            if ([departureArray count] > 1) {
+                departureDeley = [[NSRailConnection sharedInstance] normalizeString:[[departureArray objectAtIndex:1] content]];
+            }
+        }
+        
+        if (departureDeley && ![departureDeley isEqualToString:@""]) {
+            [train setDepartureDelay:departureDeley];
+        }
+        
+        NSString *departureString = [NSString stringWithFormat:@"%@ %@", [[NSRailConnection sharedInstance] normalizeString:[[[element nodesForXPath:@"vertrekdatum" error:nil] objectAtIndex:0] stringValue]], departureTimeString];
+        NSString *arrivalString = [NSString stringWithFormat:@"%@ %@", [[NSRailConnection sharedInstance] normalizeString:[[[element nodesForXPath:@"aankomstdatum" error:nil] objectAtIndex:0] stringValue]], [[NSRailConnection sharedInstance] normalizeString:[[[element nodesForXPath:@"aankomst" error:nil] objectAtIndex:0] stringValue]]];
+        
+        NSDate *departure = [[NSRailConnection sharedInstance] dateForString:departureString];
+        [train setDeparture:departure];
+        [train setArrival:[[NSRailConnection sharedInstance] dateForString:arrivalString]];
+        
+        NSInteger diff = ([departure timeIntervalSinceReferenceDate] - [NSDate timeIntervalSinceReferenceDate]) / 60;
+        if (diff > 60) {
+            continue;
+        }
+        
+        [trains addObject:train];
+    }
+    
+    return trains;
+}
+
 @end

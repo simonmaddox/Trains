@@ -12,6 +12,8 @@
 
 @protocol NSRailConnectionDataSource <NSObject>
 
+@optional
+
 - (NSURLRequest *)requestWithFrom:(NSString *)from to:(NSString *)to;
 - (NSURLRequest *)requestForMoreWithFrom:(NSString *)from to:(NSString *)to;
 
@@ -24,6 +26,10 @@
 - (NSString *)train:(Train *)train departureDelayFromElement:(TFHppleElement *)element;
 - (NSString *)train:(Train *)train arrivalDelayFromElement:(TFHppleElement *)element;
 - (BOOL)shouldDisplayTrain:(Train *)train;
+
+// Implement this if you want to provide your own parsing implementation
+- (NSArray *)trainsWithData:(NSData *)data;
+
 
 @end
 

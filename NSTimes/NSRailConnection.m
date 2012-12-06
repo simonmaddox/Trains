@@ -109,33 +109,7 @@ static NSRailConnection *sharedInstance = nil;
 }
 
 - (NSArray *)trainsWithXMLData:(NSData *)data {
-    NSMutableArray *trains = [NSMutableArray array];
-    
-    // TODO: SM - Need to implement this
-    /*DDXMLDocument *document = [[DDXMLDocument alloc] initWithData:data options:0 error:nil];
-    NSArray *elements = [document nodesForXPath:@"//reistijden/reizen/reis" error:nil];
-    
-    for (DDXMLElement *element in elements) {
-        Train *train = [[Train alloc] init];
-    
-        // Simple fields
-        [train setPlatform:[self.dataSource train:train platformFromElement:element]];
-        [train setTravelTime:[self.dataSource train:train travelTimeFromElement:element]];
-        
-        // Delays
-        [train setDepartureDelay:[self.dataSource train:train departureDelayFromElement:element]];
-        [train setArrivalDelay:[self.dataSource train:train arrivalDelayFromElement:element]];
-        
-
-        [train setDeparture:[self.dataSource train:train departureDateFromElement:element]];
-        [train setArrival:[self.dataSource train:train arrivalDateFromElement:element]];
-        
-        if ([self.dataSource shouldDisplayTrain:train]){
-            [trains addObject:train];
-        }
-    }*/
-    
-    return trains;
+    return [self.dataSource trainsWithData:data];
 }
 
 #pragma mark - Helpers
