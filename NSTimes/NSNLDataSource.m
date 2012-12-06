@@ -49,44 +49,58 @@
     return @"//table[@class='time-table']/tbody/tr";
 }
 
-- (NSDate *)departureDateFromElement:(DDXMLElement *)element
+- (NSDate *)train:(Train *)train departureDateFromElement:(TFHppleElement *)element
 {
-    NSString *departureTimeString = [[NSRailConnection sharedInstance] normalizeString:[[[element nodesForXPath:@"vertrek" error:nil] objectAtIndex:0] stringValue]];
-
-    NSString *departureString = [NSString stringWithFormat:@"%@ %@", [[NSRailConnection sharedInstance] normalizeString:[[[element nodesForXPath:@"vertrekdatum" error:nil] objectAtIndex:0] stringValue]], departureTimeString];
+    NSString *departureString = [NSString stringWithFormat:@"%@ %@", [[NSRailConnection sharedInstance] normalizeString:[[element firstChildWithClassName:@"departure-date"] text]], [[NSRailConnection sharedInstance] normalizeString:[[element firstChildWithClassName:@"departure"] text]]];
     
     return [[NSRailConnection sharedInstance] dateForString:departureString];
     
 }
 
-- (NSDate *)arrivalDateFromElement:(DDXMLElement *)element
+- (NSDate *)train:(Train *)train arrivalDateFromElement:(TFHppleElement *)element
 {
+    NSString *arrivalString = [NSString stringWithFormat:@"%@ %@", [[NSRailConnection sharedInstance] normalizeString:[[element firstChildWithClassName:@"arrival-date"] text]], [[NSRailConnection sharedInstance] normalizeString:[[element firstChildWithClassName:@"arrival"] text]]];
     
+    return [[NSRailConnection sharedInstance] dateForString:arrivalString];
 }
 
-- (NSString *)platformFromElement:(DDXMLElement *)element
+- (NSString *)train:(Train *)train platformFromElement:(TFHppleElement *)element
 {
-    return [[NSRailConnection sharedInstance] normalizeString:[[[element nodesForXPath:@"aankomstspoor" error:nil] objectAtIndex:0] stringValue]];
+    return [[NSRailConnection sharedInstance] normalizeString:[[element firstChildWithClassName:@"platform"] text]];
 }
 
-- (NSString *)travelTimeFromElement:(DDXMLElement *)element
+- (NSString *)train:(Train *)train travelTimeFromElement:(TFHppleElement *)element
 {
-    return [[NSRailConnection sharedInstance] normalizeString:[[[element nodesForXPath:@"reistijd" error:nil] objectAtIndex:0] stringValue]];
+    return [[NSRailConnection sharedInstance] normalizeString:[[element firstChildWithClassName:@"travel-time"] text]];
 }
 
-- (NSString *)departureDelayFromElement:(DDXMLElement *)element
+- (NSString *)train:(Train *)train departureDelayFromElement:(TFHppleElement *)element
 {
+    NSArray *departureDelay = [[element firstChildWithClassName:@"departure"] childrenWithTagName:@"strong"];
+    if (departureDelay && [departureDelay count] > 0) {
+        return [[NSRailConnection sharedInstance] normalizeString:[[departureDelay objectAtIndex:0] text]];
+    } else {
+        return @"";
+    }
+}
+
+- (NSString *)train:(Train *)train arrivalDelayFromElement:(TFHppleElement *)element
+{
+    NSArray *arrivalDelay = [[element firstChildWithClassName:@"arrival"] childrenWithTagName:@"strong"];
+    if (arrivalDelay && [arrivalDelay count] > 0) {
+        return [[NSRailConnection sharedInstance] normalizeString:[[arrivalDelay objectAtIndex:0] text]];
+    } else {
+        return @"";
+    }
     
-}
 
-- (NSString *)arrivalDelayFromElement:(DDXMLElement *)element
-{
-    
 }
 
 - (BOOL)shouldDisplayTrain:(Train *)train
 {
+    NSInteger diff = ([train.departure timeIntervalSinceReferenceDate] - [NSDate timeIntervalSinceReferenceDate]) / 60;
     
+    return (diff <= 60);
 }
 
 @end

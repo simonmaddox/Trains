@@ -86,34 +86,20 @@ static NSRailConnection *sharedInstance = nil;
         }
         
         // Simple fields
-        [train setPlatform:[self normalizeString:[[element firstChildWithClassName:@"platform"] text]]];
-        [train setTravelTime:[self normalizeString:[[element firstChildWithClassName:@"travel-time"] text]]];
-        
-        // Dates
-        NSString *departureString = [NSString stringWithFormat:@"%@ %@", [self normalizeString:[[element firstChildWithClassName:@"departure-date"] text]], [self normalizeString:[[element firstChildWithClassName:@"departure"] text]]];
-        NSString *arrivalString = [NSString stringWithFormat:@"%@ %@", [self normalizeString:[[element firstChildWithClassName:@"arrival-date"] text]], [self normalizeString:[[element firstChildWithClassName:@"arrival"] text]]];
-        
-        NSDate *departure = [self dateForString:departureString];
-        [train setDeparture:departure];
-        [train setArrival:[self dateForString:arrivalString]];
-        
-        NSInteger diff = ([departure timeIntervalSinceReferenceDate] - [NSDate timeIntervalSinceReferenceDate]) / 60;
-        if (diff > 60) {
-            continue;
-        }
+        [train setPlatform:[self.dataSource train:train platformFromElement:element]];
+        [train setTravelTime:[self.dataSource train:train travelTimeFromElement:element]];
         
         // Delays
-        NSArray *departureDelay = [[element firstChildWithClassName:@"departure"] childrenWithTagName:@"strong"];
-        if (departureDelay && [departureDelay count] > 0) {
-            [train setDepartureDelay:[self normalizeString:[[departureDelay objectAtIndex:0] text]]];
-        }
+        [train setDepartureDelay:[self.dataSource train:train departureDelayFromElement:element]];
+        [train setArrivalDelay:[self.dataSource train:train arrivalDelayFromElement:element]];
         
-        NSArray *arrivalDelay = [[element firstChildWithClassName:@"arrival"] childrenWithTagName:@"strong"];
-        if (arrivalDelay && [arrivalDelay count] > 0) {
-            [train setArrivalDelay:[self normalizeString:[[arrivalDelay objectAtIndex:0] text]]];
-        }
         
-        [trains addObject:train];
+        [train setDeparture:[self.dataSource train:train departureDateFromElement:element]];
+        [train setArrival:[self.dataSource train:train arrivalDateFromElement:element]];
+        
+        if ([self.dataSource shouldDisplayTrain:train]){
+            [trains addObject:train];
+        }
     }
     
     return trains;
@@ -122,30 +108,29 @@ static NSRailConnection *sharedInstance = nil;
 - (NSArray *)trainsWithXMLData:(NSData *)data {
     NSMutableArray *trains = [NSMutableArray array];
     
-    DDXMLDocument *document = [[DDXMLDocument alloc] initWithData:data options:0 error:nil];
+    // TODO: SM - Need to implement this
+    /*DDXMLDocument *document = [[DDXMLDocument alloc] initWithData:data options:0 error:nil];
     NSArray *elements = [document nodesForXPath:@"//reistijden/reizen/reis" error:nil];
     
     for (DDXMLElement *element in elements) {
         Train *train = [[Train alloc] init];
     
         // Simple fields
-        [train setPlatform:[self.dataSource platformFromElement:element]];
-        [train setTravelTime:[self.dataSource travelTimeFromElement:element]];
+        [train setPlatform:[self.dataSource train:train platformFromElement:element]];
+        [train setTravelTime:[self.dataSource train:train travelTimeFromElement:element]];
         
         // Delays
+        [train setDepartureDelay:[self.dataSource train:train departureDelayFromElement:element]];
+        [train setArrivalDelay:[self.dataSource train:train arrivalDelayFromElement:element]];
         
-        NSString *arrivalString = [NSString stringWithFormat:@"%@ %@", [self normalizeString:[[[element nodesForXPath:@"aankomstdatum" error:nil] objectAtIndex:0] stringValue]], [self normalizeString:[[[element nodesForXPath:@"aankomst" error:nil] objectAtIndex:0] stringValue]]];
 
-        [train setDeparture:[self.dataSource departureDateFromElement:element]];
-        [train setArrival:[self dateForString:arrivalString]];
+        [train setDeparture:[self.dataSource train:train departureDateFromElement:element]];
+        [train setArrival:[self.dataSource train:train arrivalDateFromElement:element]];
         
-        NSInteger diff = ([train.departure timeIntervalSinceReferenceDate] - [NSDate timeIntervalSinceReferenceDate]) / 60;
-        if (diff > 60) {
-            continue;
+        if ([self.dataSource shouldDisplayTrain:train]){
+            [trains addObject:train];
         }
-        
-        [trains addObject:train];
-    }
+    }*/
     
     return trains;
 }

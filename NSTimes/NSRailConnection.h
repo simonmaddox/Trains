@@ -8,7 +8,7 @@
 
 #import <Foundation/Foundation.h>
 
-@class Train, DDXMLElement;
+@class Train, TFHppleElement;
 
 @protocol NSRailConnectionDataSource <NSObject>
 
@@ -17,12 +17,12 @@
 
 - (NSString *)XPathQueryForTrains;
 
-- (NSDate *)departureDateFromElement:(DDXMLElement *)element;
-- (NSDate *)arrivalDateFromElement:(DDXMLElement *)element;
-- (NSString *)platformFromElement:(DDXMLElement *)element;
-- (NSString *)travelTimeFromElement:(DDXMLElement *)element;
-- (NSString *)departureDelayFromElement:(DDXMLElement *)element;
-- (NSString *)arrivalDelayFromElement:(DDXMLElement *)element;
+- (NSDate *)train:(Train *)train departureDateFromElement:(TFHppleElement *)element;
+- (NSDate *)train:(Train *)train arrivalDateFromElement:(TFHppleElement *)element;
+- (NSString *)train:(Train *)train platformFromElement:(TFHppleElement *)element;
+- (NSString *)train:(Train *)train travelTimeFromElement:(TFHppleElement *)element;
+- (NSString *)train:(Train *)train departureDelayFromElement:(TFHppleElement *)element;
+- (NSString *)train:(Train *)train arrivalDelayFromElement:(TFHppleElement *)element;
 - (BOOL)shouldDisplayTrain:(Train *)train;
 
 @end
