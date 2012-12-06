@@ -10,7 +10,7 @@
 
 @class Train, TFHppleElement;
 
-@protocol NSRailConnectionDelegate <NSObject>
+@protocol NSRailConnectionDataSource <NSObject>
 
 - (NSURLRequest *)requestWithFrom:(NSString *)from to:(NSString *)to;
 - (NSURLRequest *)requestForMoreWithFrom:(NSString *)from to:(NSString *)to;
@@ -31,6 +31,8 @@
 
 @property (nonatomic, assign) NSString *from;
 @property (nonatomic, assign) NSString *to;
+
+@property (nonatomic, assign) id <NSRailConnectionDataSource> dataSource;
 
 + (NSRailConnection *)sharedInstance;
 

@@ -37,6 +37,7 @@
 		F4F4982B16707E3100457726 /* DDXMLElement.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F4982316707E3100457726 /* DDXMLElement.m */; };
 		F4F4982C16707E3100457726 /* DDXMLNode.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F4982516707E3100457726 /* DDXMLNode.m */; };
 		F4F4982F16707E3D00457726 /* TrainsMessageView.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F4982E16707E3D00457726 /* TrainsMessageView.m */; };
+		F4F4983216707FCF00457726 /* NSNLDataSource.m in Sources */ = {isa = PBXBuildFile; fileRef = F4F4983116707FCF00457726 /* NSNLDataSource.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -93,6 +94,8 @@
 		F4F4982716707E3100457726 /* DDXMLPrivate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = DDXMLPrivate.h; sourceTree = "<group>"; };
 		F4F4982D16707E3D00457726 /* TrainsMessageView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = TrainsMessageView.h; sourceTree = "<group>"; };
 		F4F4982E16707E3D00457726 /* TrainsMessageView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = TrainsMessageView.m; sourceTree = "<group>"; };
+		F4F4983016707FCF00457726 /* NSNLDataSource.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSNLDataSource.h; sourceTree = "<group>"; };
+		F4F4983116707FCF00457726 /* NSNLDataSource.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSNLDataSource.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -233,6 +236,8 @@
 			children = (
 				E1F1025E16680DE800087248 /* NSRailConnection.h */,
 				E1F1025F16680DE800087248 /* NSRailConnection.m */,
+				F4F4983016707FCF00457726 /* NSNLDataSource.h */,
+				F4F4983116707FCF00457726 /* NSNLDataSource.m */,
 				E1F102B91668152C00087248 /* Train.h */,
 				E1F102BA1668152C00087248 /* Train.m */,
 			);
@@ -386,6 +391,7 @@
 				F4F4982B16707E3100457726 /* DDXMLElement.m in Sources */,
 				F4F4982C16707E3100457726 /* DDXMLNode.m in Sources */,
 				F4F4982F16707E3D00457726 /* TrainsMessageView.m in Sources */,
+				F4F4983216707FCF00457726 /* NSNLDataSource.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
