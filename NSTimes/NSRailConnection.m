@@ -14,6 +14,8 @@
 #import "AFNetworking.h"
 #import "TFHpple.h"
 
+#import "NSNLDataSource.h"
+
 @implementation NSRailConnection
 
 @synthesize from = _from, to = _to;
@@ -25,6 +27,7 @@ static NSRailConnection *sharedInstance = nil;
         sharedInstance = [[NSRailConnection alloc] init];
         [sharedInstance setFrom:@"Haarlem"];
         [sharedInstance setTo:@"Amsterdam"];
+        [sharedInstance setDataSource:[[NSNLDataSource alloc] init]];
     }
     
     return sharedInstance;

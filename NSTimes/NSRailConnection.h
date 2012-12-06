@@ -32,7 +32,7 @@
 @property (nonatomic, assign) NSString *from;
 @property (nonatomic, assign) NSString *to;
 
-@property (nonatomic, assign) id <NSRailConnectionDataSource> dataSource;
+@property (nonatomic, strong) id <NSRailConnectionDataSource> dataSource;
 
 + (NSRailConnection *)sharedInstance;
 
